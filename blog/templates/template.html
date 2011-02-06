@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="br" />
+		<meta name="keywords" content="rlopes" />
+		<meta name="Description" content="rlopes" />
+		<meta name="robots" content="index,follow" />
+		<title>{% block title %}{% endblock %}| Henrique Lopes</title>
+		<link rel="alternate" type="application/atom+xml" href="//twitter.com/statuses/user_timeline/riquellopes.atom">
+		{% block css %}{% endblock %}
+		<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+		<link rel="stylesheet" href="/static/css/validationEngine.jquery.css" type="text/css">
+		{#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>#}
+		<script src="/static/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+		<script src="/static/js/jquery.validationEngine-pt.js" type="text/javascript"></script>
+		<script src="/static/js/jquery.validationEngine.js" type="text/javascript"></script>
+		<script src="/static/js/jquery.validationEngine-extend.js" type="text/javascript"></script>
+		<script src="/static/js/rlopes.js" type="text/javascript"></script>
+		{% block script %}{% endblock %}
+	</head>
+<body {% block body %}{% endblock%}>
+	<a href="http://github.com/riquellopes"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 43;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+	<div id="top">
+		<div class="inner">
+			<div id="header">
+				<h1>Henrique Lopes<br /><small>Python, PHP, MongoDB, jQuery...</small></h1>
+			</div>
+			<div id="nav-menu">
+				<ul id="nav">
+					<li><a href="{{ url_for('get') }}" class="rounde">Home</a></li>
+					<li><a href="#fale-comigo" class="rounde">Fale Comigo</a></li>
+				</ul>	
+			</div>	
+			<div id="container">	
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<div class="flash-message">
+							{% for message in messages: %}
+								<p>{{ message }}</p>
+							{% endfor %}	
+						</div>
+					{% endif %}
+				{% endwith %}
+				{% block container %}{% endblock %}
+			</div>	
+		</div>
+	</div>
+	<div id="bottom">
+		<div class="inner">
+			<div id="bottomLeft">
+				<h3>Siga me:</h3>
+				<div class="leftContainer">
+					<ul id="siga-me">
+						<li class="delicious"><a href="http://www.delicious.com/riquellopes" target="_black">Delicious</a></li>
+						<li class="facebook"><a href="http://facebook.com/profile.php?id=100000079352090" target="_black">Facebook</a></li>
+						<li class="flickr"><a href="http://flick.com/photos/riquellopes" target="_black">Flickr</a></li>
+						<li class="orkut"><a href="#" target="_black">Orkut</a></li>
+						<li class="twitter"><a href="http://twitter.com/riquellopes" target="_black">Twitter</a></li>
+					</ul>
+					<div class="clear">&nbsp;</div>
+					<div id="twitter">&nbsp;</div>
+				</div>
+				<div class="clear">&nbsp;</div>
+			</div>	
+			<div id="bottomRight">
+				<h3 id="fale-comigo">Fale comigo:</h3>
+				<div class="rightContainer fale-comigo">
+					{% from 'macro.html' import input, textarea %}
+					<form method="post" action="{{url_for('contact')}}" id="form-contact" class="form-contact">
+						<div class="input">
+							{{ input('nome', 'Digite seu nome', class="validate[required]  text-input", id='nome', default='Digite seu nome') }}
+						</div>
+						<div class="input">
+							{{ input('email', 'Digite seu email', class="validate[required,custom[email]]  text-input", id='email', default='Digite seu email') }}
+						</div>
+						<div class="textarea">
+							{{ textarea('mensagem', class="validate[required,length[6,300]] text-input", value="Escreva sua mensagem", id='mensagem', default='Escreva sua message') }}
+						</div>
+						{{ input('acao', 'Enviar', class="submit rounde", type="submit", id="send-contact") }}
+						<div class="clear"></div>	
+					</form>
+				</div>		
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div id="footer">&nbsp;</div>
+	</div
+</body>	
+</html>

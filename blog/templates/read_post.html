@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+{% block title %} {{post.title}} {% endblock %}
+{% block css %}
+	<link href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block script %}
+	<script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+{% endblock%}
+{% block body %} onload='prettyPrint()' {% endblock  %}
+{% block container %}
+	<div class="post-blog">
+		{% from 'macro.html' import render_post %}
+		{{ render_post(post, admin_loggend=admin_loggend) }}
+	</div>
+{% endblock %}

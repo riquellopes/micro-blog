@@ -1,0 +1,21 @@
+application: rlopes
+version: 1
+runtime: python
+api_version: 1
+
+skip_files: |
+ ^(.*/)?(
+ (.git)|
+ (#.*#)|
+ (.*~)
+ (.*/.py[co])|
+ (.*/RCS/.*)|
+ (\..*)|
+ )$
+ 
+handlers:
+- url: /static
+  static_dir: static    
+  
+- url: .*
+  script: main.py

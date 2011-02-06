@@ -1,0 +1,56 @@
+{% macro input(name, value='', type='text', class="", id="", default="") %}
+	<input type="{{ type }}" value="{{ value|e }}" name="{{ name }}" class="{{ class }}" id="{{ id }}" default="{{ default }}"/>
+{% endmacro %}
+
+{% macro textarea(name='', value='', rows=10, cols=40, class="", id="", default="") %}
+	<textarea name="{{ name }}" rows="{{ rows }}" cols="{{ cols }}" class="{{ class }}" id="{{ id }}" default="{{ default }}">{{ value|e }}</textarea>
+{% endmacro %}
+
+{% macro tags(tags) %}
+	{% for tag in tags %}
+		<a href="/tag/{{tag}}">{{tag}}</a>{% if not loop.last %}, {% endif %}
+	{% endfor %}
+{% endmacro%}
+
+{% macro render_post(post, preview=False, admin_loggend=False) %}
+	<div id="post">
+		<h3><span><a href="{{ url_for('get', name=post.url) }}">{{ post.title }}</a></span></h3>
+		<div class="created-strip">
+			Publicado {{ post.date_create.strftime("%d %B, %Y") }} em 
+			{{ tags(post.tags) }}
+		</div>
+		<p>
+			{% if preview %}{{ post.text|truncate|safe }}{% else %}{{ post.text|safe }}{% endif %}
+		</p>
+		<div class="clear">&nbsp;</div>
+		{% if preview %}
+			<a href="{{ url_for('get', name=post.url) }}" class="read-more rounde">Leia mais</a>
+		{% endif %}
+		{% if not preview %}
+			<div class="sharing clearfix">
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Frlopes.it%2F{{post.url}}&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+			</div>
+		{% endif %}
+		{% if admin_loggend %}
+			<div class="controller-post">
+				<a href="{{ url_for('form_post', id=post.key().id()) }}" class="rounde" id="edit">Edit</a>
+				<a href="{{ url_for('delete_post', id=post.key().id()) }}" class="rounde" id="delete">Delete</a>
+			</div>
+		{% endif %}
+		<div class="clear">&nbsp;</div>	
+	</div>
+{% endmacro %}
+
+{% macro render_input(input, text_alias=None) %}
+	<label>{{ input.label }}</label>{% if text_alias %} <small>{{ text_alias }}</small> {% endif %}<br />
+	{{ input(**kwargs)|safe }}
+	{% if input.errors %}
+		<ul class="errors"> 
+		{% for error in input.errors %}
+			<li> {{ error }}</li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endmacro %}

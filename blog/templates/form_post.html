@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% block script %}
+	<!--Include YUI Loader: --> 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/yui/2.8.2r1/build/yuiloader/yuiloader-min.js"></script>
+	<!--Use YUI Loader to bring in your other dependencies: --> 
+	<script type="text/javascript" src="/static/js/load-editor.js"></script>
+{% endblock %}
+{% block title %} {{title}} {% endblock%}
+{% block body %}class="yui-skin-sam"{% endblock%}
+{% block container %}
+	<div class="post-blog">
+		<div id="post">
+			<form action="/{{action}}" method="post" class="edit" enctype="multipart/form-data">
+				{% from 'macro.html' import render_input ,input  %}
+				{{ form.hidden_tag() }}
+				<div>
+					{{ render_input(form.title, size=40) }}
+				</div>
+				<div>
+					{{ render_input(form.tags, text_alias='(separar tags por virgula.)') }}
+				</div>
+				<div>
+					{{ render_input(form.text, id='text', rows=20, cols=95) }}
+				</div>
+				<br />
+				<div>
+					{{ input('salve', type='submit', value="Salvar", id="form-salvar") }}
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+{% block title %} rlopes {% endblock %}
+{% block container %}
+<div class="post-blog">
+	{% from 'macro.html' import render_post %}
+	{% for post in posts: %}
+		{{ render_post(post, preview=True, admin_loggend=admin_loggend) }}
+	{% endfor %}
+</div>{{ name }}
+<br />
+{% if admin_loggend %}
+	<div class="new-post">
+	 	<a href="{{ url_for('form_post') }}" class="rounde">New post</a>
+	</div>
+{% endif %}
+{% endblock %}
