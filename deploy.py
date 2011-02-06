@@ -10,7 +10,7 @@ import os
 	
 def deploy(args):
 
-	if not args[1:]
+	if not args[1:]:
 		print "Error: No revision given. Cannot deploy"
 		print "To deploy the current revision, use the following command:"
 		print "$ python deploy.py 'git rev-parse HEAD'\n"
