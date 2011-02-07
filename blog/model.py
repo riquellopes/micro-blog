@@ -73,6 +73,3 @@ class Post(db.Model):
 		
 		self.url = slug(self.title)
 		return super(Post, self).put()
-
-	def get_href(self):
-		return 'http://rlopes.it/primeiro-post' 
