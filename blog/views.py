@@ -19,7 +19,7 @@ from hooks import page_not_found, internal_server_error
 from send import Contact
 
 @app.route('/')
-@app.route('/<name>')
+@app.route('/post/<name>')
 def get(name=None):
 	if name == None:
 		posts = Post.all()

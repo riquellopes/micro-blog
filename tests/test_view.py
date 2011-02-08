@@ -28,12 +28,12 @@ class TestView(unittest.TestCase):
 		assert_true('<title> rlopes | Henrique Lopes</title>' in str(response.data) )
 
 	def test_read_post(self):
-		response = self.app.get(self.post.url)
-		title = '<h3><span><a href="/%s">%s</a></span></h3>' % (self.post.url, self.post.title)
+		response = self.app.get("/post/%s" % self.post.url)
+		title = '<h3><span><a href="/post/%s">%s</a></span></h3>' % (self.post.url, self.post.title)
 		assert_true(title in str(response.data))
 
 	def test_read_post_that_not_exist(self):
-		response = self.app.get("/meu-primeiro-post")
+		response = self.app.get("/post/meu-primeiro-post")
 		assert_true('<title> Ops! Error 404 | Henrique Lopes</title>' in str(response.data))
 		
 	def admin_loggend(self, times=1):

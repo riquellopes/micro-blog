@@ -11,6 +11,7 @@ skip_files: |
  (.*/.py[co])|
  (.*/RCS/.*)|
  (\..*)|
+ (README)
  )$
  
 handlers:
