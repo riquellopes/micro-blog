@@ -5,7 +5,7 @@ from flaskext.wtf import TextAreaField, TextField, Form, validators
 ValidationError = validators.ValidationError
 from datetime import datetime
 
-__to__ = 'riquellopes@gmail.com'
+__email__ = 'riquellopes@gmail.com'
 validation_engine = []
 
 class Contact(Form):
@@ -23,18 +23,19 @@ class Contact(Form):
 		"""Método que envia email para destinatário."""
 		email = EmailMessage()
 		
-		email.sender = '%s <%s>' % (self.nome.data, self.email.data)
+		email.sender = '%s <%s>' % ("rlopes-blog", __email__)
 		email.subject = 'Fale comigo - rlopes'
-		email.to = __to__
+		email.to = __email__
 		email.body = """
 					Nome: %(nome)s
 					Data Contato: %(data)s
-					
+					Email: %(email)s
 					%(messagem)s
 										
 					""" % {'nome':self.nome.data, 
-						   'data':datetime.today().strftime('%d/%m/%y'),
-						   'messagem':self.mensagem.data}
+						   'data':datetime.today().strftime('%d/%m/%Y'),
+						   'messagem':self.mensagem.data,
+						   'email':self.email.data}
 		
 		email.send()
 
