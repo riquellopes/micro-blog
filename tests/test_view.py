@@ -45,7 +45,7 @@ class TestView(unittest.TestCase):
 
 	def test_form_insert(self):
 		self.admin_loggend(10)
-		response = self.app.get("/form")
+		response = self.app.get("/post/form")
 		assert_true('<title> Criar post | Henrique Lopes</title>' in str(response.data))	
 
 	def test_form_update(self):

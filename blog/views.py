@@ -63,7 +63,7 @@ def form_update_post(id):
 	except:
 		abort(404)
 
-@app.route('/form')
+@app.route('/post/form')
 @login_required
 def form_new_post():
 	"""Método responsável em criar form new para o blog."""
@@ -80,7 +80,7 @@ def update_post(id):
 	if form.validate_on_submit():
 		form.model = post
 		form.save()
-		flash('Poste atualizado.')
+		flash('Post atualizado.')
 		return redirect(url_for('get'))
 	return render_template('form_post.html', form=form, title=title, action=action)
 
