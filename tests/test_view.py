@@ -28,8 +28,8 @@ class TestView(unittest.TestCase):
 		assert_true('<title> rlopes | Henrique Lopes</title>' in str(response.data) )
 
 	def test_read_post(self):
-		response = self.app.get("/post/%s" % self.post.url)
-		title = '<h3><span><a href="/post/%s">%s</a></span></h3>' % (self.post.url, self.post.title)
+		response = self.app.get("/%s" % self.post.url)
+		title = '<h3><span><a href="/%s">%s</a></span></h3>' % (self.post.url, self.post.title)
 		assert_true(title in str(response.data))
 
 	def test_read_post_that_not_exist(self):
@@ -54,7 +54,14 @@ class TestView(unittest.TestCase):
 		response = self.app.get(url)
 		title = '<title> Update - %s | Henrique Lopes</title>' % self.post.title
 		assert_true(title in str(response.data))
-		
+
+	def test_form_update_error(self):
+		self.admin_loggend(5)
+		url = "/%i/form" % 1
+		response = self.app.get(url)
+		title = '<title> Ops! Error 404 | Henrique Lopes</title>'
+		assert_true(title in str(response.data))
+			
 	def test_create_post(self):
 		self.admin_loggend(10)
 		data = {

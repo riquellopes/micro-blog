@@ -35,7 +35,7 @@
 		{% endif %}
 		{% if admin_loggend %}
 			<div class="controller-post">
-				<a href="{{ url_for('form_post', id=post.key().id()) }}" class="rounde" id="edit">Edit</a>
+				<a href="{{ url_for('form_update_post', id=post.key().id()) }}" class="rounde" id="edit">Edit</a>
 				<a href="{{ url_for('delete_post', id=post.key().id()) }}" class="rounde" id="delete">Delete</a>
 			</div>
 		{% endif %}

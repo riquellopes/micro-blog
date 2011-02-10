@@ -19,7 +19,7 @@ from hooks import page_not_found, internal_server_error
 from send import Contact
 
 @app.route('/')
-@app.route('/post/<name>')
+@app.route('/<name>')
 def get(name=None):
 	if name == None:
 		posts = Post.all()
@@ -51,33 +51,38 @@ def contact():
 		return 'true'					   
 	return contact.get_validation_engine()
 	
-@app.route('/form')
 @app.route('/<int:id>/form')
 @login_required
-def form_post(id=None):
-	"""Método responsável em criar form para o blog."""
-	if id :
+def form_update_post(id):
+	"""Método responsável em criar form update para o blog."""
+	try:
 		form = PostForm( Post.get_by_id(id) )
-		title = 'Update - %s' % form.title.data
-		action = '%i/update' % id
-	else:
-		form = PostForm()
-		title = 'Criar post'
-		action = 'create'
+		title = 'Update - %s' % form.title.data.strip()
+		action = '%i/update' % int(id)
+		return render_template('form_post.html', form=form, title=title, action=action)
+	except:
+		abort(404)
+
+@app.route('/form')
+@login_required
+def form_new_post():
+	"""Método responsável em criar form new para o blog."""
+	form = PostForm()
+	return render_template('form_post.html', form=form, title='Criar post', action='create')
 		
-	return render_template('form_post.html', form=form, title=title, action=action);
-	
 @app.route('/<int:id>/update', methods=['POST'])
 @login_required
 def update_post(id):
 	post = Post.get_by_id(id)
 	form = PostForm()
+	title = 'Update - %s' % form.title.data
+	action = '%i/update' % int(id)
 	if form.validate_on_submit():
 		form.model = post
 		form.save()
 		flash('Poste atualizado.')
 		return redirect(url_for('get'))
-	return render_template('form_post.html', form=form)
+	return render_template('form_post.html', form=form, title=title, action=action)
 
 @app.route('/create', methods=['POST'])
 @login_required
@@ -88,7 +93,7 @@ def create_post():
 		form.save()
 		flash('Post foi salvo no banco de dados.')
 		return redirect(url_for('get'))
-	return render_template('form_post.html', form=form)
+	return render_template('form_post.html', form=form, title='Criar post', action="create")
 			
 @app.route('/<int:id>/delete', methods=['GET'])
 @login_required
