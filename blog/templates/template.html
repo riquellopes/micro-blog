@@ -53,7 +53,7 @@
 					<ul id="siga-me">
 						<li class="delicious"><a href="http://www.delicious.com/riquellopes" target="_black">Delicious</a></li>
 						<li class="facebook"><a href="http://facebook.com/profile.php?id=100000079352090" target="_black">Facebook</a></li>
-						<li class="flickr"><a href="http://flick.com/photos/riquellopes" target="_black">Flickr</a></li>
+						<li class="flickr"><a href="http://flickr.com/photos/riquellopes" target="_black">Flickr</a></li>
 						<li class="orkut"><a href="#" target="_black">Orkut</a></li>
 						<li class="twitter"><a href="http://twitter.com/riquellopes" target="_black">Twitter</a></li>
 					</ul>
@@ -83,7 +83,20 @@
 			</div>
 			<div class="clear">&nbsp;</div>
 		</div>
-		<div id="footer">&nbsp;</div>
+		<div id="footer">
+			<div class="inner">
+				<ul id="nav">
+					<li><a href="{{ url_for('get') }}" class="rounde">Home</a></li>
+					<li><a href="#fale-comigo" class="rounde">Fale comigo</a></li>
+					<li><a href="{{ rss_url }}" class="rounde">Rss</a></li>	
+				{% if admin_loggend %}
+					<li><a href="{{ admin_logout_url(url_for('get', _external=True)) }}" class="rounde">Logout</a></li>
+				{% else %}
+					<li><a href="{{ admin_login_url(url_for('get', _external=True)) }}" class="rounde">Login</a></li>
+				{% endif %}
+				</ul>
+			</div>
+		</div>
 	</div
 </body>	
 </html>

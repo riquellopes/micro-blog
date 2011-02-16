@@ -5,7 +5,6 @@ import re
 from unicodedata import normalize
 import urllib
 
-
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 
 def slug(text, delim=u'-'):

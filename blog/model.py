@@ -67,9 +67,8 @@ class Post(db.Model):
 	def put(self):
 		"""
 			Método responsável em salvar informações no bigtable.
-			Após conteúdo ser salvo, url é envida para o twiter,
+			Após conteúdo ser salvo, url é envida para o twitter,
 			informando que existe um novo post no blog.
 		"""
-		
 		self.url = slug(self.title)
 		return super(Post, self).put()

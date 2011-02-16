@@ -95,7 +95,7 @@ div#nav-menu{
 	margin-bottom:100px;
 }
 
-ul#nav{
+div#nav-menu ul#nav{
 	float:right;
 }
 
@@ -104,16 +104,21 @@ ul#nav li{
 	margin:2px;
 	padding:2px;
 	list-style-type: none;
-}	
+}
+
+div#nav-menu ul#nav li a{
+	background:#375F7F;
+	border:1px solid #2F4E7F;
+}
+	
 ul#nav li a{
 	display:block;
 	text-shadow:0 1px 1px #213454;
 	color:#fff;
 	padding:3px 6px;
-	background:#375F7F;
-	border:1px solid #2F4E7F;
 }
-ul#nav li a:hover{
+
+div#nav-menu ul#nav li a:hover{
 	background:#3E6D8F; 
 	border-color:#30566F;
 }
